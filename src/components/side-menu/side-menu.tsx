@@ -8,16 +8,20 @@ import { Component, h, Host, Prop } from '@stencil/core';
 export class SideMenu {
 
   @Prop() webName: string;
+  sideMenuColor: string = "#f1f1f1";
 
   private showMenu() {
     // Menu
     const sideMenu = document.querySelector('side-menu');
     const sideMenuElement = sideMenu.shadowRoot.querySelector('aside');
-    sideMenuElement.style.backgroundColor = "#f1f1f1";
+    sideMenuElement.style.backgroundColor = this.sideMenuColor;
+    sideMenuElement.style.transition = "all 0.5s ease-in-out";
     // Items inside the menu
     const sideMenuItems = sideMenu.querySelectorAll('side-menu-item');
     sideMenuItems.forEach(item => {
-      item.shadowRoot.querySelector('a').style.display = "block";
+      item.shadowRoot.querySelector('a').style.opacity = "1";
+      item.shadowRoot.querySelector('a').style.visibility = "visible";
+      item.shadowRoot.querySelector('a').style.transition = "opacity 0.5s, visibility 0.5s";
     });
     // Delete burger icon
     const burgerIcon = sideMenu.shadowRoot.querySelector('.burger-menu-icon');
@@ -40,7 +44,8 @@ export class SideMenu {
     // Items inside the menu
     const sideMenuItems = sideMenu.querySelectorAll('side-menu-item');
     sideMenuItems.forEach(item => {
-      item.shadowRoot.querySelector('a').style.display = "none";
+      item.shadowRoot.querySelector('a').style.opacity = "0";
+      item.shadowRoot.querySelector('a').style.visibility = "hidden";
     });
     // Change the close button back into a burger icon
     const closeIcon = sideMenu.shadowRoot.querySelector('.close-menu-icon');

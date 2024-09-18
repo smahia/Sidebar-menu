@@ -35,6 +35,9 @@
   .webName .burger-menu-icon {
     display: none;
   }
+  .webName .close-menu-icon {
+    display: none;
+  }
 }
 
 /* TABLET */
