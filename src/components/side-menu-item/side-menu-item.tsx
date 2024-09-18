@@ -14,16 +14,33 @@ export class SideMenuItem {
 
   @Event() itemSelected: EventEmitter;
 
+  // Get all the elements in the HTML with the tag "side-menu-item" and store them in an array
+  menuItemsArray = Array.from(document.getElementsByTagName('side-menu-item'));
+
+  /**
+   * Lifecycle Method
+   */
+  componentDidLoad() {
+    const currentUrl = window.location.href;
+    // https://stackoverflow.com/questions/39334400/how-to-split-url-to-get-url-path-in-javascript
+    let pathname = new URL(currentUrl).pathname.substring(1);
+
+    this.menuItemsArray.forEach((item) => {
+      if (pathname === item.url) {
+        item.shadowRoot.querySelector("a").classList.add("active");
+      }
+
+    });
+
+  }
+
   @Listen("itemSelected")
   otherItemSelectedHandler(e) {
     console.log('recieved event', e.currentTarget);
 
     console.log(document.getElementsByTagName('side-menu-item'));
 
-    // Get all the elements in the HTML with the tag "side-menu-item" and store them in an array
-    const menuItemsArray = Array.from(document.getElementsByTagName('side-menu-item'));
-
-    menuItemsArray.forEach((item, index) => {
+    this.menuItemsArray.forEach((item, index) => {
       console.log(`Item ${index}:`, item);
       // item.shadowRoot.querySelector("a") allows to get the element in the shadow DOM 
       // (the html tag side-menu-item containing the a tag) 
@@ -40,7 +57,7 @@ export class SideMenuItem {
     console.log(e.srcElement);
 
     // Add the active class to the selected item
-    e.srcElement.classList.toggle("active");
+    e.srcElement.classList.add("active");
 
     // Emit the selected item as an event
     this.itemSelected.emit(e);
