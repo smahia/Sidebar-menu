@@ -9,12 +9,60 @@ export class SideMenu {
 
   @Prop() webName: string;
 
+  private showMenu() {
+    // Menu
+    const sideMenu = document.querySelector('side-menu');
+    const sideMenuElement = sideMenu.shadowRoot.querySelector('aside');
+    sideMenuElement.style.backgroundColor = "#f1f1f1";
+    // Items inside the menu
+    const sideMenuItems = sideMenu.querySelectorAll('side-menu-item');
+    sideMenuItems.forEach(item => {
+      item.shadowRoot.querySelector('a').style.display = "block";
+    });
+    // Delete burger icon
+    const burgerIcon = sideMenu.shadowRoot.querySelector('.burger-menu-icon');
+    burgerIcon.remove();
+    // Add a close button icon and its styles
+    const closeIcon = document.createElement('a');
+    closeIcon.className = 'close-menu-icon';
+    closeIcon.innerHTML = '&times;'
+    closeIcon.onclick = () => this.closeMenu();
+    closeIcon.style.fontSize = "30px";
+    closeIcon.style.cursor = "pointer";
+    sideMenu.shadowRoot.querySelector('.webName').appendChild(closeIcon);
+  }
+
+  private closeMenu() {
+    // Menu
+    const sideMenu = document.querySelector('side-menu');
+    const sideMenuElement = sideMenu.shadowRoot.querySelector('aside');
+    sideMenuElement.style.backgroundColor = "transparent";
+    // Items inside the menu
+    const sideMenuItems = sideMenu.querySelectorAll('side-menu-item');
+    sideMenuItems.forEach(item => {
+      item.shadowRoot.querySelector('a').style.display = "none";
+    });
+    // Change the close button back into a burger icon
+    const closeIcon = sideMenu.shadowRoot.querySelector('.close-menu-icon');
+    closeIcon.remove();
+    // Add the burger icon
+    const burgerIcon = document.createElement('a');
+    burgerIcon.className = 'burger-menu-icon';
+    burgerIcon.innerHTML = '&#9776;'
+    burgerIcon.onclick = () => this.showMenu();
+    burgerIcon.style.fontSize = "30px";
+    burgerIcon.style.cursor = "pointer";
+    sideMenu.shadowRoot.querySelector('.webName').appendChild(burgerIcon);
+    
+  }
+
   render() {
     return (
       <Host>
         <aside class="sidebar">
           <div class="webName">
-            {this.webName}
+            <a href="/">{this.webName}</a>
+            <a class="burger-menu-icon" onClick={() => this.showMenu()}>&#9776;</a>
           </div>
 
           {/* <side-menu-item url="#home" navItemName="Home"></side-menu-item>
