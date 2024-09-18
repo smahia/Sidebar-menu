@@ -20,6 +20,17 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface SideMenu {
+        "webName": string;
+    }
+    interface SideMenuItem {
+        "navItemName": string;
+        "url": string;
+    }
+}
+export interface SideMenuItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSideMenuItemElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +39,33 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLSideMenuElement extends Components.SideMenu, HTMLStencilElement {
+    }
+    var HTMLSideMenuElement: {
+        prototype: HTMLSideMenuElement;
+        new (): HTMLSideMenuElement;
+    };
+    interface HTMLSideMenuItemElementEventMap {
+        "itemSelected": any;
+    }
+    interface HTMLSideMenuItemElement extends Components.SideMenuItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSideMenuItemElementEventMap>(type: K, listener: (this: HTMLSideMenuItemElement, ev: SideMenuItemCustomEvent<HTMLSideMenuItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSideMenuItemElementEventMap>(type: K, listener: (this: HTMLSideMenuItemElement, ev: SideMenuItemCustomEvent<HTMLSideMenuItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSideMenuItemElement: {
+        prototype: HTMLSideMenuItemElement;
+        new (): HTMLSideMenuItemElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "side-menu": HTMLSideMenuElement;
+        "side-menu-item": HTMLSideMenuItemElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +83,18 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface SideMenu {
+        "webName"?: string;
+    }
+    interface SideMenuItem {
+        "navItemName"?: string;
+        "onItemSelected"?: (event: SideMenuItemCustomEvent<any>) => void;
+        "url"?: string;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "side-menu": SideMenu;
+        "side-menu-item": SideMenuItem;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +102,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "side-menu": LocalJSX.SideMenu & JSXBase.HTMLAttributes<HTMLSideMenuElement>;
+            "side-menu-item": LocalJSX.SideMenuItem & JSXBase.HTMLAttributes<HTMLSideMenuItemElement>;
         }
     }
 }

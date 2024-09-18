@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+.menuItem {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  display: block;
+  margin: 10px;
+}
+.active {
+  background-color: #04AA6D;
+  color: white;
+  border-radius: 10px;
+}
