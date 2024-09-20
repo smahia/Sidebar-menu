@@ -16,12 +16,16 @@ export class SideMenu {
     const sideMenuElement = sideMenu.shadowRoot.querySelector('aside');
     sideMenuElement.style.backgroundColor = this.sideMenuColor;
     sideMenuElement.style.transition = "all 0.5s ease-in-out";
+    const webName = sideMenuElement.querySelector('.webName');
+    webName.setAttribute('style', 'border-radius: 0px;');
     // Items inside the menu
     const sideMenuItems = sideMenu.querySelectorAll('side-menu-item');
     sideMenuItems.forEach(item => {
-      item.shadowRoot.querySelector('a').style.opacity = "1";
-      item.shadowRoot.querySelector('a').style.visibility = "visible";
-      item.shadowRoot.querySelector('a').style.transition = "opacity 0.5s, visibility 0.5s";
+      item.shadowRoot.querySelector('a').style.margin = "10px";
+      item.shadowRoot.querySelector('a').style.padding = "10px";
+      item.shadowRoot.querySelector('a').style.height = "auto";
+      item.shadowRoot.querySelector('a').style.lineHeight = "normal";
+      item.shadowRoot.querySelector('a').style.transform = "scaleY(1)";
     });
     // Delete burger icon
     const burgerIcon = sideMenu.shadowRoot.querySelector('.burger-menu-icon');
@@ -41,11 +45,16 @@ export class SideMenu {
     const sideMenu = document.querySelector('side-menu');
     const sideMenuElement = sideMenu.shadowRoot.querySelector('aside');
     sideMenuElement.style.backgroundColor = "transparent";
+    const webName = sideMenuElement.querySelector('.webName');
+    webName.setAttribute('style', 'border-radius: 15px;');
     // Items inside the menu
     const sideMenuItems = sideMenu.querySelectorAll('side-menu-item');
     sideMenuItems.forEach(item => {
-      item.shadowRoot.querySelector('a').style.opacity = "0";
-      item.shadowRoot.querySelector('a').style.visibility = "hidden";
+      item.shadowRoot.querySelector('a').style.margin = "0px";
+      item.shadowRoot.querySelector('a').style.padding = "0px";
+      item.shadowRoot.querySelector('a').style.height = "0px";
+      item.shadowRoot.querySelector('a').style.lineHeight = "0px";
+      item.shadowRoot.querySelector('a').style.transform = "scaleY(0)";
     });
     // Change the close button back into a burger icon
     const closeIcon = sideMenu.shadowRoot.querySelector('.close-menu-icon');
