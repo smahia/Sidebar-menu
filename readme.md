@@ -8,7 +8,7 @@ This sidebar menu is a standalone web component built with Stencil.
 
 Clone the project component and install it into your project folder using the following command:
 
-npm i ../side-menu
+`npm i ../side-menu`
 
 In the head of the index.html of the project:
 
